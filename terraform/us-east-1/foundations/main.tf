@@ -17,7 +17,7 @@ module "compute" {
   controller_instance_profile = "cluster-controller"
   controller_instance_type    = "t2.small"
 
-  worker_instance_profile = "cluster-controller" # fine for now
+  worker_instance_profile = "cluster-worker"
   worker_instance_type    = "t3.medium"
 
   depends_on = [module.network]
