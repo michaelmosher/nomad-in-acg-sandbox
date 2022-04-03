@@ -2,16 +2,14 @@ data "cloudinit_config" "controller_user_data" {
   gzip          = true
   base64_encode = true
 
-  part {
-    content_type = "text/jinja2"
-    content      = file("${var.cloud_init_files_path}/install_packages.yml")
-    filename     = "install_packages.yml"
-  }
+  dynamic "part" {
+    for_each = fileset("${var.cloud_init_files_path}/cluster-controller/", "*.yml")
 
-  part {
-    content_type = "text/cloud-config"
-    content      = file("${var.cloud_init_files_path}/ssh_users.yml")
-    filename     = "ssh_users.yml"
+    content {
+      content_type = "text/jinja2"
+      content      = file("${var.cloud_init_files_path}/cluster-controller/${part.value}")
+      filename     = part.value
+    }
   }
 
   part {
