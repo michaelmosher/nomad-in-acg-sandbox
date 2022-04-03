@@ -27,4 +27,6 @@ provider "cloudinit" {}
 
 locals {
   cloud_init_files_path = "../../../cloud-init"
+  cloud_lab_dns         = ""
+  my_local_cidr         = ""
 }

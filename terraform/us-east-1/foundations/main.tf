@@ -21,3 +21,13 @@ module "compute" {
 
   depends_on = [module.network]
 }
+
+module "ingress" {
+  source = "../../modules/ingress"
+
+  cluster_identifier       = "east-1"
+  ingress_safe_list        = [local.my_local_cidr]
+  load_balancer_subnet_ids = toset(module.network.public_subnet_ids)
+  route53_public_zone_id   = data.aws_route53_zone.public.zone_id
+  vpc_id                   = module.network.vpc_id
+}
