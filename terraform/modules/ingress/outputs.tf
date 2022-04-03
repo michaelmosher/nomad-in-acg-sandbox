@@ -9,3 +9,7 @@ output "load_balancer_dns" {
 output "load_balancer_listener_arn" {
   value = { for k, v in aws_lb_listener.main : k => v.arn }
 }
+
+output "load_balancer_security_group_id" {
+  value = aws_security_group.main.id
+}
