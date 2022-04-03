@@ -1,0 +1,27 @@
+#cloud-config
+---
+
+merge_how:
+ - name: list
+   settings: [append]
+ - name: dict
+   settings: [no_replace, recurse_list]
+
+write_files:
+  - content: |
+      datacenter = "${datacenter}"
+      data_dir   = "/opt/consul"
+      retry_join = ["provider=aws tag_key=ConsulDatacenter tag_value=${datacenter}"]
+
+      client_addr      = "127.0.0.1 {{ GetPrivateIP }}"
+      server           = true
+      bootstrap_expect = ${bootstrap_expect}
+
+      ui_config {
+        enabled = true
+      }
+    path: /etc/consul.d/consul.hcl
+
+runcmd:
+  - [systemctl, enable, consul]
+  - [systemctl, start, consul]

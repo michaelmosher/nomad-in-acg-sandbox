@@ -1,0 +1,34 @@
+#cloud-config
+---
+merge_how:
+ - name: list
+   settings: [append]
+ - name: dict
+   settings: [no_replace, recurse_list]
+
+write_files:
+  - content: |
+      [Unit]
+      Wants=consul.service
+      After=consul.service
+    path: /etc/systemd/system/nomad.service.d/override.conf
+
+  - content: |
+      datacenter = "${datacenter}"
+      data_dir = "/opt/nomad/data"
+
+      consul {}
+
+      server {
+        enabled          = true
+        bootstrap_expect = ${bootstrap_expect}
+      }
+
+      ui {
+        enabled =  true
+      }
+    path: /etc/nomad.d/nomad.hcl
+
+runcmd:
+  - [systemctl, enable, nomad]
+  - [systemctl, start, nomad]
