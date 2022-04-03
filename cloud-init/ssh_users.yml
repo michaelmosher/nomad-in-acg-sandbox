@@ -1,0 +1,10 @@
+#cloud-config
+---
+
+users:
+  - default
+  - name: michael
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    lock_passwd: true
+    ssh_authorized_keys:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDgdKme2yLrFrCcCaDnx1xM0aDvegAd2kWEWE0BhsLrEY8U/CHbohQIJDj2EampH4NKFUN57oiXGrLm5YTsNhPXBn3S/w+vgiJin9907aTbeepg09HIoPLqMkUhgw/9oNBfsR3iuFhIgUYpFcvM7mSWYeGvFs8X9EPqUNBiyOR3+i+yKaJxfb0tyis6kv7X67ZRd+4C796QWn2PWO1DBmmQjDQuN0xw6ml+zCs/HJMrMO/enOhJO5rp6Oiy2mjciyApSY8SDlbLM8naT3N6+sYJ4loYGXZT3XgWzN0h81JgPyZhWcpL87bJM3vk9zYBg6MeUGcR6cWy/vBTMMjREh7X michaelmosher@Axiom.local"
