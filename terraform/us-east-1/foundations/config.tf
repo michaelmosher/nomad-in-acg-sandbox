@@ -6,6 +6,11 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.5.0"
     }
+
+    cloudinit = {
+      source  = "hashicorp/cloudinit"
+      version = "~> 2.2.0"
+    }
   }
 
   backend "s3" {
@@ -16,4 +21,10 @@ terraform {
 
 provider "aws" {
   region = "us-east-1"
+}
+
+provider "cloudinit" {}
+
+locals {
+  cloud_init_files_path = "../../../cloud-init"
 }
