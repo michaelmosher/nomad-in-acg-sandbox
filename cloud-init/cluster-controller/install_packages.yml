@@ -1,0 +1,11 @@
+## template: jinja
+#cloud-config
+---
+
+packages:
+  - ["consul", "1.11.*"]
+  - ["nomad",  "1.2.*"]
+
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true

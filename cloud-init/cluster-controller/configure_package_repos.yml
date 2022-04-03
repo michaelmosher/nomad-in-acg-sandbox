@@ -68,11 +68,3 @@ apt:
         aSgXPw6uF+0CyLOQ0haf2j6w1OB8ayEGSkTPER5rImCJf3MGw8IECGrErAd+
         =emKC
         -----END PGP PUBLIC KEY BLOCK-----
-
-packages:
-  - ["consul", "1.11.*"]
-  - ["nomad",  "1.2.*"]
-
-package_update: true
-package_upgrade: true
-package_reboot_if_required: true

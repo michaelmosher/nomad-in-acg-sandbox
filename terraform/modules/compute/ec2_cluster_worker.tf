@@ -2,16 +2,14 @@ data "cloudinit_config" "worker_user_data" {
   gzip          = true
   base64_encode = true
 
-  part {
-    content_type = "text/jinja2"
-    content      = file("${var.cloud_init_files_path}/install_packages.yml")
-    filename     = "install_packages.yml"
-  }
+  dynamic "part" {
+    for_each = fileset("${var.cloud_init_files_path}/cluster-worker/", "*.yml")
 
-  part {
-    content_type = "text/cloud-config"
-    content      = file("${var.cloud_init_files_path}/ssh_users.yml")
-    filename     = "ssh_users.yml"
+    content {
+      content_type = "text/jinja2"
+      content      = file("${var.cloud_init_files_path}/cluster-worker/${part.value}")
+      filename     = part.value
+    }
   }
 
   part {
@@ -66,4 +64,3 @@ resource "aws_instance" "cluster_worker" {
 
   count = var.worker_instance_count
 }
-
