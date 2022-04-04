@@ -3,6 +3,7 @@
 ---
 
 packages:
+  - git
   - ["consul", "1.11.*"]
   - ["nomad",  "1.2.*"]
 
