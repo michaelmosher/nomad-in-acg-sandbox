@@ -22,8 +22,12 @@ write_files:
       client {
         enabled = true
       }
+
+      plugin "nomad-driver-podman" {}
     path: /etc/nomad.d/nomad.hcl
 
 runcmd:
   - [systemctl, enable, nomad]
   - [systemctl, start, nomad]
+  # nomad needs permission to launch privileged containers
+  - [setcap, "CAP_SYSADMIN=eip", "/usr/local/bin/nomad"]

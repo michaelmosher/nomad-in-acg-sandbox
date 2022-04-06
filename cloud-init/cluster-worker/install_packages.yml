@@ -5,6 +5,8 @@
 packages:
   - ["consul", "1.11.*"]
   - ["nomad",  "1.2.*"]
+  - ["podman", "4.0.*"]
+  - unzip
 
 package_update: true
 package_upgrade: true

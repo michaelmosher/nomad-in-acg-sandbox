@@ -1,0 +1,18 @@
+## template: jinja
+#cloud-config
+---
+
+merge_how:
+ - name: list
+   settings: [append]
+ - name: dict
+   settings: [no_replace, recurse_list]
+
+# TODO make this more generic (arch)?
+runcmd:
+  - [systemctl, enable, podman.socket]
+  - [systemctl, start, podman.socket]
+  - [mkdir, -p, /opt/nomad/data/plugins]
+  - [curl, -O, "https://releases.hashicorp.com/nomad-driver-podman/0.3.0/nomad-driver-podman_0.3.0_linux_amd64.zip"]
+  - [unzip, -d, /opt/nomad/data/plugins, nomad-driver-podman_0.3.0_linux_amd64.zip]
+  - [chown, -R, "nomad:nomad", /opt/nomad/data/plugins]
