@@ -15,7 +15,7 @@ terraform {
 
   backend "s3" {
     bucket = ""
-    key    = "terraform/us-east-1.tfstate"
+    key    = "terraform/us-east-1/foundations.tfstate"
   }
 }
 
