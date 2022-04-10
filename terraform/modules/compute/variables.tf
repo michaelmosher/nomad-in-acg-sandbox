@@ -19,17 +19,17 @@ variable "cluster_subnet_ids" {
   type = set(string)
 }
 
-variable "controller_instance_count" {
+variable "coordinator_instance_count" {
   type    = number
   default = 3
 }
 
-variable "controller_instance_profile" {
+variable "coordinator_instance_profile" {
   type    = string
   default = null
 }
 
-variable "controller_instance_type" {}
+variable "coordinator_instance_type" {}
 
 variable "vpc_id" {}
 

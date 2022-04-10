@@ -14,8 +14,8 @@ module "compute" {
   cluster_subnet_ids              = toset(module.network.private_subnet_ids)
   vpc_id                          = module.network.vpc_id
 
-  controller_instance_profile = "cluster-controller"
-  controller_instance_type    = "t2.small"
+  coordinator_instance_profile = "cluster-coordinator"
+  coordinator_instance_type    = "t2.small"
 
   worker_instance_profile = "cluster-worker"
   worker_instance_type    = "t3.medium"
