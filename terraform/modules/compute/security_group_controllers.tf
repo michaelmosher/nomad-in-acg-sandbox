@@ -1,6 +1,6 @@
-resource "aws_security_group" "cluster_controllers" {
-  name_prefix = "${var.cluster_identifier}-cluster-controllers-"
-  description = "Rules allowing access to cluster controller EC2 instances"
+resource "aws_security_group" "cluster_coordinators" {
+  name_prefix = "${var.cluster_identifier}-cluster-coordinators-"
+  description = "Rules allowing access to cluster coordinator EC2 instances"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -45,6 +45,6 @@ resource "aws_security_group" "cluster_controllers" {
   }
 
   tags = {
-    Name = "cluster-controllers-${var.cluster_identifier}"
+    Name = "cluster-coordinators-${var.cluster_identifier}"
   }
 }
