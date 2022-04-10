@@ -1,0 +1,22 @@
+## template: jinja
+#cloud-config
+---
+
+merge_how:
+ - name: list
+   settings: [append]
+ - name: dict
+   settings: [no_replace, recurse_list]
+
+# TODO make this more generic (arch)?
+runcmd:
+  - [systemctl, enable, containerd]
+  - [systemctl, start, containerd]
+  - [mkdir, -p, /opt/nomad/data/plugins]
+
+  - [curl, -Lo, "/opt/nomad/data/plugins/nomad-driver-containerd",
+      "https://github.com/Roblox/nomad-driver-containerd/releases/download/v0.9.3/containerd-driver"
+    ]
+
+  - ["chmod", "+x", "/opt/nomad/data/plugins/nomad-driver-containerd"]
+  - [chown, -R, "nomad:nomad", /opt/nomad/data/plugins]

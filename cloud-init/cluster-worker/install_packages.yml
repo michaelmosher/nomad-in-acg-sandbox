@@ -5,6 +5,7 @@
 packages:
   - ["consul", "1.11.*"]
   - ["nomad",  "1.2.*"]
+  - ["containerd.io", "1.5.*"]
 
 package_update: true
 package_upgrade: true
