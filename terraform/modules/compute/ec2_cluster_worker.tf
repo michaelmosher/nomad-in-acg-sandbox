@@ -1,5 +1,5 @@
 resource "aws_instance" "cluster_worker" {
-  ami                  = data.aws_ami.centos_9.id
+  ami                  = data.aws_ami.ubuntu_22_04.id
   iam_instance_profile = var.worker_instance_profile
   instance_type        = var.worker_instance_type
   user_data            = var.worker_user_data

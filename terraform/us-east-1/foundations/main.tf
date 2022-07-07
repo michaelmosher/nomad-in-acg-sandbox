@@ -29,11 +29,11 @@ module "compute" {
   vpc_id                          = module.network.vpc_id
 
   coordinator_instance_profile = "cluster-coordinator"
-  coordinator_instance_type    = "t2.small"
+  coordinator_instance_type    = "t4g.small"
   coordinator_user_data        = module.cloud_init_coordinator.rendered_user_data
 
   worker_instance_profile = "cluster-worker"
-  worker_instance_type    = "t3.medium"
+  worker_instance_type    = "t4g.medium"
   worker_user_data        = module.cloud_init_worker.rendered_user_data
 
   depends_on = [module.network]
