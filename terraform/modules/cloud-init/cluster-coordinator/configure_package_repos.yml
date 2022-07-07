@@ -4,9 +4,7 @@
 
 yum_repos:
   hashicorp:
-    # this should use $releasever instead of 8, but https://rpm.releases.hashicorp.com/RHEL/9/x86_64/stable/repodata/repomd.xml
-    # currently returns 404.
-    baseurl: "https://rpm.releases.hashicorp.com/RHEL/8/$basearch/stable"
+    baseurl: "https://rpm.releases.hashicorp.com/RHEL/$releasever/$basearch/stable"
     name: "Hashicorp Stable - $basearch"
     gpgcheck: 1
     gpgkey: "https://rpm.releases.hashicorp.com/gpg"
