@@ -5,20 +5,36 @@ module "network" {
   availability_zones = slice(data.aws_availability_zones.available.names, 0, 3)
 }
 
+module "cloud_init_coordinator" {
+  source = "../../modules/cloud-init"
+
+  cluster_identifier = "east-1"
+  machine_role       = "cluster-coordinator"
+}
+
+module "cloud_init_worker" {
+  source = "../../modules/cloud-init"
+
+
+  cluster_identifier = "east-1"
+  machine_role       = "cluster-worker"
+}
+
 module "compute" {
   source = "../../modules/compute"
 
   cluster_identifier              = "east-1"
-  cloud_init_files_path           = local.cloud_init_files_path
   cluster_ingress_security_groups = [module.ingress.load_balancer_security_group_id]
   cluster_subnet_ids              = toset(module.network.private_subnet_ids)
   vpc_id                          = module.network.vpc_id
 
   coordinator_instance_profile = "cluster-coordinator"
-  coordinator_instance_type    = "t2.small"
+  coordinator_instance_type    = "t4g.small"
+  coordinator_user_data        = module.cloud_init_coordinator.rendered_user_data
 
   worker_instance_profile = "cluster-worker"
-  worker_instance_type    = "t3.medium"
+  worker_instance_type    = "t4g.medium"
+  worker_user_data        = module.cloud_init_worker.rendered_user_data
 
   depends_on = [module.network]
 }

@@ -2,9 +2,6 @@ variable "cluster_identifier" {
   type = string
 }
 
-variable "cloud_init_files_path" {
-}
-
 variable "cluster_ingress_security_groups" {
   type    = list(string)
   default = []
@@ -31,6 +28,8 @@ variable "coordinator_instance_profile" {
 
 variable "coordinator_instance_type" {}
 
+variable "coordinator_user_data" {}
+
 variable "vpc_id" {}
 
 variable "worker_instance_count" {
@@ -44,3 +43,5 @@ variable "worker_instance_profile" {
 }
 
 variable "worker_instance_type" {}
+
+variable "worker_user_data" {}

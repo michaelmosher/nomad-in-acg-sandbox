@@ -1,5 +1,5 @@
 terraform {
-  required_version = "~> 1.1.7"
+  required_version = "~> 1.2.4"
 
   required_providers {
     aws = {
@@ -26,7 +26,6 @@ provider "aws" {
 provider "cloudinit" {}
 
 locals {
-  cloud_init_files_path = "../../../cloud-init"
   cloud_lab_dns         = ""
   my_local_cidr         = ""
 }

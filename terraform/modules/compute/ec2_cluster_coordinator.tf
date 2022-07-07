@@ -1,49 +1,8 @@
-data "cloudinit_config" "coordinator_user_data" {
-  gzip          = true
-  base64_encode = true
-
-  dynamic "part" {
-    for_each = fileset("${var.cloud_init_files_path}/cluster-coordinator/", "*.yml")
-
-    content {
-      content_type = "text/jinja2"
-      content      = file("${var.cloud_init_files_path}/cluster-coordinator/${part.value}")
-      filename     = part.value
-    }
-  }
-
-  part {
-    content_type = "text/cloud-config"
-    filename     = "configure_consul_server.yml"
-
-    content = templatefile(
-      "${var.cloud_init_files_path}/templates/configure_consul_server.tftpl",
-      {
-        datacenter       = var.cluster_identifier,
-        bootstrap_expect = var.coordinator_instance_count,
-      }
-    )
-  }
-
-  part {
-    content_type = "text/cloud-config"
-    filename     = "configure_nomad_server.yml"
-
-    content = templatefile(
-      "${var.cloud_init_files_path}/templates/configure_nomad_server.tftpl",
-      {
-        datacenter       = var.cluster_identifier,
-        bootstrap_expect = var.coordinator_instance_count,
-      }
-    )
-  }
-}
-
 resource "aws_instance" "cluster_coordinators" {
-  ami                  = data.aws_ami.centos_9.id
+  ami                  = data.aws_ami.ubuntu_22_04.id
   iam_instance_profile = var.coordinator_instance_profile
   instance_type        = var.coordinator_instance_type
-  user_data            = data.cloudinit_config.coordinator_user_data.rendered
+  user_data            = var.coordinator_user_data
 
   subnet_id = element(
     [for s in var.cluster_subnet_ids : s], # turn set into ordered list

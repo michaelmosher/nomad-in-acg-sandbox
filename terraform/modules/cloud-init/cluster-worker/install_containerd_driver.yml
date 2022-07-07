@@ -8,14 +8,13 @@ merge_how:
  - name: dict
    settings: [no_replace, recurse_list]
 
-# TODO make this more generic (arch)?
 runcmd:
   - [systemctl, enable, containerd]
   - [systemctl, start, containerd]
   - [mkdir, -p, /opt/nomad/data/plugins]
 
   - [curl, -Lo, "/opt/nomad/data/plugins/nomad-driver-containerd",
-      "https://github.com/Roblox/nomad-driver-containerd/releases/download/v0.9.3/containerd-driver"
+      "https://github.com/Roblox/nomad-driver-containerd/releases/download/v0.9.3/containerd-driver{% if v1.machine == 'aarch64' %}-arm64{% endif %}"
     ]
 
   - ["chmod", "+x", "/opt/nomad/data/plugins/nomad-driver-containerd"]
