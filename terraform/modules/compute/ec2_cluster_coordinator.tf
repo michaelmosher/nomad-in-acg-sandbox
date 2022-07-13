@@ -1,5 +1,5 @@
 resource "aws_instance" "cluster_coordinators" {
-  ami                  = data.aws_ami.ubuntu_22_04.id
+  ami                  = data.aws_ami.my_centos_9.id
   iam_instance_profile = var.coordinator_instance_profile
   instance_type        = var.coordinator_instance_type
   user_data            = var.coordinator_user_data
@@ -17,10 +17,6 @@ resource "aws_instance" "cluster_coordinators" {
   tags = {
     Name             = format("%s-coordinator-%d", var.cluster_identifier, count.index + 1)
     ConsulDatacenter = var.cluster_identifier
-  }
-
-  lifecycle {
-    ignore_changes = [ami]
   }
 
   count = var.coordinator_instance_count
