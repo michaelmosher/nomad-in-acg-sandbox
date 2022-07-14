@@ -29,7 +29,9 @@ resource "aws_lb_target_group" "consul" {
   vpc_id   = var.vpc_id
 
   health_check {
-    path = "/v1/status/leader"
+    path              = "/v1/status/leader"
+    healthy_threshold = 2
+    interval          = 10
   }
 }
 
@@ -46,7 +48,9 @@ resource "aws_lb_target_group" "nomad" {
   vpc_id   = var.vpc_id
 
   health_check {
-    path = "/v1/status/leader"
+    path              = "/v1/status/leader"
+    healthy_threshold = 2
+    interval          = 10
   }
 }
 
