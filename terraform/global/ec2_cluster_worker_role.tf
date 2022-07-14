@@ -14,6 +14,27 @@ resource "aws_iam_role_policy" "worker_cloud_auto_join" {
   policy = data.aws_iam_policy_document.describe_instances.json
 }
 
+resource "aws_iam_role_policy" "worker_ebs" {
+  name = "aws-ebs-csi-driver"
+  role = aws_iam_role.ec2_cluster_worker.name
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "ec2:DescribeInstances",
+          "ec2:DescribeTags",
+          "ec2:DescribeVolumes",
+          "ec2:AttachVolume",
+          "ec2:DetachVolume",
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      }
+    ]
+  })
+}
+
 resource "aws_iam_role_policy" "worker_efs" {
   name = "aws-efs-csi-driver"
   role = aws_iam_role.ec2_cluster_worker.name
