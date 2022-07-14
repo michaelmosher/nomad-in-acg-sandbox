@@ -5,7 +5,7 @@ terraform {
     organization = "michael-mosher"
 
     workspaces {
-      name = "nomad-in-acg-sandbox-east-1-foundations"
+      name = "nomad-in-acg-sandbox-east-1-cluster"
     }
   }
 
@@ -29,6 +29,7 @@ provider "aws" {
 provider "cloudinit" {}
 
 locals {
-  cloud_lab_dns         = ""
-  my_local_cidr         = ""
+  cloud_lab_dns = ""
+  my_local_cidr = ""
+  network_id    = "east"
 }
