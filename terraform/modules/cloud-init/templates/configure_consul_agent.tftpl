@@ -11,6 +11,7 @@ write_files:
   - content: |
       datacenter = "${datacenter}"
       data_dir   = "/opt/consul"
+      bind_addr = "{{ GetPrivateInterfaces | exclude \"name\" \"^docker\" | attr \"address\" }}"
       retry_join = ["provider=aws tag_key=ConsulDatacenter tag_value=${datacenter}"]
     path: /etc/consul.d/consul.hcl
 
