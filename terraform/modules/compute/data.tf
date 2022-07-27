@@ -41,18 +41,3 @@ data "aws_ami" "ubuntu_22_04" {
 
   owners = ["099720109477"] # Canonical
 }
-
-data "aws_ami" "my_centos_9" {
-  most_recent = true
-  owners      = ["self"]
-
-  filter {
-    name   = "name"
-    values = ["centos-9-*"]
-  }
-
-  filter {
-    name   = "architecture"
-    values = ["arm64"]
-  }
-}
