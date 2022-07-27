@@ -23,6 +23,12 @@ write_files:
         enabled = true
       }
 
+      plugin "docker" {
+        config {
+          allow_privileged = true
+        }
+      }
+
       plugin "nomad-driver-containerd" {
         config {
           allow_privileged = true
